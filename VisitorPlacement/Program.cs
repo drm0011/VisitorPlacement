@@ -23,7 +23,7 @@
 
             RegistrationManager registrationManager = new RegistrationManager();
 
-            Visitor visitor1 = new Visitor(1, "John Doe", new DateTime(1990, 1, 1));
+            Visitor visitor1 = new Visitor(1, "Test Name", new DateTime(1990, 1, 1));
             bool isRegistered = registrationManager.RegisterVisitor(visitor1);
 
             Console.WriteLine(isRegistered ? "Registration successful." : "Registration failed.");

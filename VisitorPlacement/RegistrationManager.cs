@@ -26,10 +26,10 @@ namespace VisitorPlacement
             {
                 if (registeredVisitor.ID == visitor.ID)
                 {
-                    return true; // A matching ID is found; the visitor is already registered.
+                    return true; //a matching ID is found; the visitor is already registered.
                 }
             }
-            return false; // No matching ID is found; the visitor is not yet registered.
+            return false; //no matching ID is found; the visitor is not yet registered.
         }
 
     }

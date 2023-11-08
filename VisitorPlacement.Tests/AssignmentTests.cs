@@ -17,9 +17,10 @@ namespace VisitorPlacement.Tests
             Sector sector = new Sector('A');
             sector.Rows.Add(new Row(1, 5));
             sector.Rows.Add(new Row(2, 5));
+
             SeatingManager seatingManager = new SeatingManager();
             // Act
-            seatingManager.AssignSeats(sector, 7); // Assuming this method is public and static
+            seatingManager.AssignSeats(sector, 7); 
 
             // Assert
             Assert.IsTrue(sector.Rows[0].Seats.All(s => s.IsOccupied));

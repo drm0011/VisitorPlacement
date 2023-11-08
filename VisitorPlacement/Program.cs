@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            //todo: add logic to assign seats to visitors
             SeatingManager seatingManager = new SeatingManager();
 
             Sector sectorA = new Sector('A');

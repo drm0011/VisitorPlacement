@@ -11,6 +11,7 @@ namespace VisitorPlacement
     {
         public int Number { get; set; }
         public bool IsOccupied { get; set; }
+        public int VisitorId { get; set; }
         public Seat(int number)
         {
             Number = number;    

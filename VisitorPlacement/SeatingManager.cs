@@ -8,19 +8,26 @@ namespace VisitorPlacement
 {
     public class SeatingManager
     {
-        public void AssignSeats(Sector sector, int numberOfVisitors)
+        public void AssignSeats(Sector sector, List<Visitor> visitors)
         {
+            int visitorIndex = 0;
             foreach (Row row in sector.Rows)
             {
                 foreach (Seat seat in row.Seats)
                 {
-                    if (numberOfVisitors == 0)
-                        return; //return at 0
-
+                    if (visitorIndex >= visitors.Count)
+                    {
+                        return;
+                    }
                     if (!seat.IsOccupied)
                     {
                         seat.IsOccupied = true;
-                        numberOfVisitors--; //minus 1 until its 0
+                        seat.VisitorId = visitors[visitorIndex].ID;
+                        visitorIndex++;
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
             }

@@ -4,7 +4,6 @@
     {
         static void Main(string[] args)
         {
-            //todo: add logic to assign seats to visitors
             SeatingManager seatingManager = new SeatingManager();
 
             Sector sectorA = new Sector('A');
@@ -16,9 +15,16 @@
             sectorB.Rows.Add(new Row(2,4));
             sectorB.Rows.Add(new Row(3,6));
 
+            List<Visitor> visitors = new List<Visitor>();
+            Visitor visitor = new Visitor(1, "Visitor 1", DateTime.Now);
+            Visitor visitor2 = new Visitor(2, "Visitor 2", DateTime.Now);
+            Visitor visitor3 = new Visitor(3, "Visitor 3", DateTime.Now);
+            visitors.Add(visitor);
+            visitors.Add(visitor2);
+            visitors.Add(visitor3);
 
-            seatingManager.AssignSeats(sectorA, 7);
-            seatingManager.AssignSeats(sectorB, 10);
+            seatingManager.AssignSeats(sectorA, visitors);
+            seatingManager.AssignSeats(sectorB, visitors);
 
             UIHelper.DisplaySectors(new List<Sector> {  sectorA,sectorB }); //ini new list populated with obj sector
 

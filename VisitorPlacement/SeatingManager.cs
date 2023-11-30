@@ -8,29 +8,39 @@ namespace VisitorPlacement
 {
     public class SeatingManager
     {
-        public void AssignSeats(Sector sector, List<Visitor> visitors)
+        public List<Sector> CreateAndAssignSeats(List<Visitor> visitors)
         {
-            int visitorIndex = 0;
-            foreach (Row row in sector.Rows)
+            List<Sector> sectors = new List<Sector>();
+            Sector currentSector = new Sector('A');
+            sectors.Add(currentSector);
+
+            Row currentRow = new Row(1);
+            currentSector.TryAddRow(currentRow);
+
+            foreach (var visitor in visitors)
             {
-                foreach (Seat seat in row.Seats)
+                Seat newSeat = new Seat(currentRow.Seats.Count + 1);
+                newSeat.IsOccupied = true;
+                newSeat.VisitorId = visitor.ID;
+
+                if (!currentRow.TryAddSeat(newSeat))
                 {
-                    if (visitorIndex >= visitors.Count)
+                    currentRow = new Row(currentSector.Rows.Count + 1);
+                    if (!currentSector.TryAddRow(currentRow))
                     {
-                        return;
+                        currentSector = new Sector((char)(currentSector.ID + 1));
+                        sectors.Add(currentSector);
+                        currentRow = new Row(1);
+                        currentSector.TryAddRow(currentRow);
                     }
-                    if (!seat.IsOccupied)
-                    {
-                        seat.IsOccupied = true;
-                        seat.VisitorId = visitors[visitorIndex].ID;
-                        visitorIndex++;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    currentRow.TryAddSeat(newSeat); 
                 }
             }
+
+            return sectors;
         }
     }
+
 }
+
+

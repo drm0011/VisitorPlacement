@@ -10,13 +10,24 @@ namespace VisitorPlacement
     {
         public int Number { get; set; }
         public List<Seat> Seats { get; set; }
-        public Row(int number, int numberOfSeats)
+        public int MaxSeats { get; private set; }
+        public Row(int number)
         {
             Number = number;
-            Seats = new List<Seat>(numberOfSeats);
-            for(int i = 0; i < numberOfSeats; i++)
+            MaxSeats = 10;
+            Seats = new List<Seat>();
+        }
+
+        public bool TryAddSeat(Seat seat)
+        {
+            if(Seats.Count < MaxSeats)
             {
-                Seats.Add(new Seat(i+1));
+                Seats.Add(seat);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

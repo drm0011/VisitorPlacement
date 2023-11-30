@@ -17,7 +17,7 @@ namespace VisitorPlacement
             Row currentRow = new Row(1);
             currentSector.TryAddRow(currentRow);
 
-            foreach (var visitor in visitors)
+            foreach (Visitor visitor in visitors)
             {
                 Seat newSeat = new Seat(currentRow.Seats.Count + 1);
                 newSeat.IsOccupied = true;

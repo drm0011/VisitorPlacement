@@ -15,16 +15,30 @@ namespace VisitorPlacement.Tests
         {
             // Arrange
             Sector sector = new Sector('A');
-            sector.Rows.Add(new Row(1, 5));
-            sector.Rows.Add(new Row(2, 5));
+            sector.Rows.Add(new Row(1));
+
+            List<Visitor> visitors = new List<Visitor> 
+            {
+                new Visitor(1, "Visitor", DateTime.Now),
+                new Visitor(2, "Visitor 2", DateTime.Now)
+            };
 
             SeatingManager seatingManager = new SeatingManager();
+
             // Act
-            seatingManager.AssignSeats(sector, 7); 
+            List<Sector> sectors= seatingManager.CreateAndAssignSeats(visitors); 
 
             // Assert
-            Assert.IsTrue(sector.Rows[0].Seats.All(s => s.IsOccupied));
-            Assert.AreEqual(2, sector.Rows[1].Seats.Count(s => s.IsOccupied));
+            Assert.IsTrue(sectors.Any());
+            Assert.IsTrue(sectors.First().Rows.Any());
+
+            foreach(Visitor visitor in visitors)
+            {
+                bool isAssigned = sectors.SelectMany(s=>s.Rows)
+                                         .SelectMany(r=>r.Seats)
+                                         .Any(seat=>seat.IsOccupied && seat.VisitorId==visitor.ID);
+                Assert.IsTrue(isAssigned, $"{visitor.Name} is not assigned.");
+            }
         }
     }
 

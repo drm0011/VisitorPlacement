@@ -13,10 +13,12 @@ namespace VisitorPlacement.Tests
         public void NewRow_ShouldHaveCorrectNumberOfSeats()
         {
             // Arrange & Act
-            Row row = new Row(1, 5);
+            Row row = new Row(1);
+            Seat seat = new Seat(1);
+            row.TryAddSeat(seat);
 
             // Assert
-            Assert.AreEqual(5, row.Seats.Count);
+            Assert.AreEqual(1, row.Seats.Count);
         }
     }
 }

@@ -29,6 +29,10 @@ namespace VisitorPlacement
                     if (!currentSector.TryAddRow(currentRow))
                     {
                         currentSector = new Sector((char)(currentSector.ID + 1));
+                        if (currentSector.ID > 'Z')
+                        {
+                            currentSector.ID = 'A';
+                        }
                         sectors.Add(currentSector);
                         currentRow = new Row(1);
                         currentSector.TryAddRow(currentRow);

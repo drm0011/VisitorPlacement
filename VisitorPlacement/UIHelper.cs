@@ -18,7 +18,15 @@ namespace VisitorPlacement
                     Console.Write($"Row {row.Number}:");
                     foreach (Seat seat in row.Seats)
                     {
-                        Console.Write(seat.IsOccupied ? $"[{seat.VisitorId}]" : "[ ]"); 
+                        if (seat.IsOccupied)
+                        {
+                            string visitorType = seat.Occupant.IsChild ? "C" : "A";
+                            Console.Write($"[{visitorType}{seat.Occupant.ID}] ");
+                        }
+                        else
+                        {
+                            Console.Write("[ ] ");
+                        }
                     }
                     Console.WriteLine();
                 }

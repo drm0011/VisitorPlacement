@@ -26,10 +26,14 @@
         public static List<Visitor> CreateVisitors(int amountOfVisitors)
         {
             List<Visitor> visitors = new List<Visitor>();
+            Random random = new Random();
 
-            for(int i = 1; i <= amountOfVisitors; i++)
+            for (int i = 1; i <= amountOfVisitors; i++)
             {
-                visitors.Add(new Visitor(i, $"Visitor {i}", DateTime.Now.AddYears(-30)));
+                int age = random.Next(1, 70); 
+                DateTime birthdate = DateTime.Today.AddYears(-age);
+
+                visitors.Add(new Visitor(i, $"Visitor {i}", birthdate));
             }
 
             return visitors;

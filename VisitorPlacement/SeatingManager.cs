@@ -21,7 +21,8 @@ namespace VisitorPlacement
             {
                 Seat newSeat = new Seat(currentRow.Seats.Count + 1);
                 newSeat.IsOccupied = true;
-                newSeat.VisitorId = visitor.ID;
+                newSeat.Occupant = visitor;
+                newSeat.Occupant.ID = visitor.ID;
 
                 if (!currentRow.TryAddSeat(newSeat))
                 {

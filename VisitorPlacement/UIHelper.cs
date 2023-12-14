@@ -21,7 +21,7 @@ namespace VisitorPlacement
                         if (seat.IsOccupied)
                         {
                             string visitorType = seat.Occupant.IsChild ? "C" : "A";
-                            Console.Write($"[{visitorType}{seat.Occupant.ID}] ");
+                            Console.Write($"[{visitorType}{seat.Occupant.ID} {seat.Occupant.Birthdate.Year}] ");
                         }
                         else
                         {

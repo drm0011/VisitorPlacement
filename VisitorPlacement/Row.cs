@@ -18,17 +18,29 @@ namespace VisitorPlacement
             Seats = new List<Seat>();
         }
 
-        public bool TryAddSeat(Seat seat)
+        public bool CanSeatBeAdded(Seat seat)
         {
             if(Seats.Count < MaxSeats)
+            {
+                if(this.Number==1 && seat.Occupant.IsChild == true)
+                {
+                    return true;
+                }
+                else if(this.Number>=2 && seat.Occupant.IsChild == false)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool TryAddSeat(Seat seat)
+        {
+            if (CanSeatBeAdded(seat))
             {
                 Seats.Add(seat);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

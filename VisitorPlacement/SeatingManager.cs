@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VisitorPlacement
 {
-    public class SeatingManager
+    public class SeatingManager //no managers, add thought process, what i learned, what i would do diff
     {
         public List<Sector> CreateAndAssignSeats(List<Visitor> visitors)
         {
@@ -19,9 +19,11 @@ namespace VisitorPlacement
 
             foreach (Visitor visitor in visitors)
             {
-                Seat newSeat = new Seat(currentRow.Seats.Count + 1);
-                newSeat.IsOccupied = true;
-                newSeat.Occupant = visitor;
+                Seat newSeat = new(currentRow.Seats.Count + 1)
+                {
+                    IsOccupied = true,
+                    Occupant = visitor
+                };
                 newSeat.Occupant.ID = visitor.ID;
 
                 if (!currentRow.TryAddSeat(newSeat))

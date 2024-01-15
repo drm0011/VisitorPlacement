@@ -20,17 +20,14 @@ namespace VisitorPlacement
 
         private bool CanSeatBeAdded(Seat seat)
         {
-            if (Seats.Count >= MaxSeats) return false;
-
-            if (this.Number == 1 && seat.Occupant.IsChild)
+            if (Seats.Count >= MaxSeats)
+            {
+                return false;
+            }
+            else
             {
                 return true;
             }
-            else if (this.Number >= 2 && seat.Occupant.IsChild == false)
-            {
-                return true;
-            }
-            return false;
         }
         public bool TryAddSeat(Seat seat)
         {

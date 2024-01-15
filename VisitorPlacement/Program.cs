@@ -10,18 +10,23 @@
 
             List<Visitor> visitors = CreateVisitors(amountOfVisitors);
 
-            SeatingManager seatingManager = new SeatingManager();
-            List<Sector> sectors = seatingManager.CreateAndAssignSeats(visitors);
+            List<Sector> sectors = new List<Sector>();
+            char sectorId = 'A';
+            int visitorsPerSector = 30; 
+
+            int numberOfBatches = (int)Math.Ceiling(visitors.Count / (double)visitorsPerSector);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                List<Visitor> batch = visitors.Skip(i * visitorsPerSector).Take(visitorsPerSector).ToList();
+                Sector sector = new Sector(sectorId++);
+                sector.AssignSeats(batch);
+                sectors.Add(sector);
+            }
 
             UIHelper.DisplaySectors(sectors);
-
-            //RegistrationManager registrationManager = new RegistrationManager();
-
-            //Visitor visitor1 = new Visitor(1, "Test Name", new DateTime(1990, 1, 1));
-            //bool isRegistered = registrationManager.RegisterVisitor(visitor1);
-
-            //Console.WriteLine(isRegistered ? "Registration successful." : "Registration failed.");
         }
+
 
         public static List<Visitor> CreateVisitors(int amountOfVisitors)
         {
@@ -30,7 +35,7 @@
 
             for (int i = 1; i <= amountOfVisitors; i++)
             {
-                int age = random.Next(1, 70); 
+                int age = random.Next(1, 70);
                 DateTime birthdate = DateTime.Today.AddYears(-age);
 
                 visitors.Add(new Visitor(i, $"Visitor {i}", birthdate));

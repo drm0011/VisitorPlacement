@@ -37,7 +37,7 @@ namespace VisitorPlacement
             {
                 if (!AddSeatToRow(currentRow, child))
                 {
-                    HandleFullFirstRowForChildren();
+                    HandleFullFirstRowForChildren(ref currentRow);
                     AddSeatToRow(currentRow, child);
                 }
             }
@@ -84,12 +84,10 @@ namespace VisitorPlacement
             throw new Exception("Sector row limit reached");
         }
 
-        private void HandleFullFirstRowForChildren()
+        private void HandleFullFirstRowForChildren(ref Row currentRow)
         {
-            // logic for first row being too full for more children
-            // move to second row or first row next sector
-            throw new Exception("First row for children is full");
-        }
+			currentRow = CreateNewRow() ?? HandleSectorOverflow();
+		}
     }
 
 }

@@ -12,19 +12,20 @@ namespace VisitorPlacement
         public string Name { get; set; }
         public DateTime Birthdate { get; set; }
         public bool IsChild { get; set; }
-        public Visitor(int id, string name, DateTime birthdate)
+        public Visitor(int id, string name, DateTime birthDate)
         {
             ID = id;
             Name = name;
-            Birthdate = birthdate;
-            IsChild = CalculateAge(birthdate) <= 12;
+            Birthdate = birthDate;
         }
-
-        private int CalculateAge(DateTime birthdate)
+        public void UpdateChildStatus(DateTime eventDate)
         {
-            DateTime today = DateTime.Today;
-            int age = today.Year - birthdate.Year;
-            if (birthdate.Date > today.AddYears(-age)) age--;
+            IsChild = CalculateAge(Birthdate, eventDate) <= 12;
+        }
+        private int CalculateAge(DateTime birthDate, DateTime eventDate)
+        {
+            int age = eventDate.Year - birthDate.Year;
+            if (birthDate.Date > eventDate.AddYears(-age)) age--;
             return age;
         }
     }

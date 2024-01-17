@@ -8,21 +8,14 @@
             Console.WriteLine("Visitor amount:");
             amountOfVisitors = Convert.ToInt32(Console.ReadLine());
 
+            Event myEvent = new Event(new DateTime(2024, 1, 1));
+
             List<Visitor> visitors = CreateVisitors(amountOfVisitors);
+            myEvent.RegisterVisitors(visitors);
 
-            List<Sector> sectors = new List<Sector>();
-            char sectorId = 'A';
-            int visitorsPerSector = 30; 
+            List<Visitor> registeredVisitors = myEvent.GetRegisteredVisitors();
 
-            int numberOfBatches = (int)Math.Ceiling(visitors.Count / (double)visitorsPerSector);
-
-            for (int i = 0; i < numberOfBatches; i++)
-            {
-                List<Visitor> batch = visitors.Skip(i * visitorsPerSector).Take(visitorsPerSector).ToList();
-                Sector sector = new Sector(sectorId++);
-                sector.AssignSeats(batch);
-                sectors.Add(sector);
-            }
+            List<Sector> sectors = OrganizeVisitorsIntoSectors(registeredVisitors);
 
             UIHelper.DisplaySectors(sectors);
         }
@@ -42,6 +35,25 @@
             }
 
             return visitors;
+        }
+
+        private static List<Sector> OrganizeVisitorsIntoSectors(List<Visitor> visitors)
+        {
+            List<Sector> sectors = new List<Sector>();
+            char sectorId = 'A';
+            int visitorsPerSector = 30;
+
+            int numberOfBatches = (int)Math.Ceiling(visitors.Count / (double)visitorsPerSector);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                List<Visitor> batch = visitors.Skip(i * visitorsPerSector).Take(visitorsPerSector).ToList();
+                Sector sector = new Sector(sectorId++);
+                sector.AssignSeats(batch);
+                sectors.Add(sector);
+            }
+
+            return sectors;
         }
     }
 }

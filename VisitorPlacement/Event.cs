@@ -11,11 +11,33 @@ namespace VisitorPlacement
         public DateTime EventDate { get; set; }
         private List<Visitor> registeredVisitors = new List<Visitor>();
         public List<Group> Groups { get; set; }
-
+        public List<Sector> Sectors { get; private set; } 
         public Event(DateTime eventDate)
         {
             EventDate = eventDate;
             Groups = new List<Group>();
+            Sectors = new List<Sector>(); 
+        }
+
+        public void OrganizeVisitorsIntoSectors()
+        {
+            Sectors.Clear(); 
+            char sectorId = 'A';
+            int visitorsPerSector = 30;
+
+            int numberOfBatches = (int)Math.Ceiling(registeredVisitors.Count / (double)visitorsPerSector);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                List<Visitor> batch = registeredVisitors
+                    .Skip(i * visitorsPerSector)
+                    .Take(visitorsPerSector)
+                    .ToList();
+
+                Sector sector = new Sector(sectorId++);
+                sector.AssignSeats(batch);
+                Sectors.Add(sector);
+            }
         }
         public void RegisterVisitors(List<Visitor> visitors)
         {
@@ -39,8 +61,12 @@ namespace VisitorPlacement
                 Groups.Add(group);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
+
         public bool RegisterVisitor(Visitor visitor)
         {
             if (!IsAlreadyRegistered(visitor))

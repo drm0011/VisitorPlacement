@@ -26,9 +26,9 @@
                 }
             }
 
-            List<Visitor> registeredVisitors = myEvent.GetRegisteredVisitors();
-            List<Sector> sectors = OrganizeVisitorsIntoSectors(registeredVisitors);
-            UIHelper.DisplaySectors(sectors);
+            myEvent.OrganizeVisitorsIntoSectors(); 
+
+            UIHelper.DisplaySectors(myEvent.Sectors);
         }
 
         private static Group CreateGroup(int groupId)
@@ -52,31 +52,13 @@
                 Console.Write("Enter Birthdate (yyyy-mm-dd): ");
                 DateTime birthdate = DateTime.Parse(Console.ReadLine());
 
-                var visitor = new Visitor(id, name, birthdate);
+                Visitor visitor = new Visitor(id, name, birthdate);
                 group.AddToGroup(visitor);
             }
 
             return group;
         }
 
-        private static List<Sector> OrganizeVisitorsIntoSectors(List<Visitor> visitors)
-        {
-            List<Sector> sectors = new List<Sector>();
-            char sectorId = 'A';
-            int visitorsPerSector = 30;
-
-            int numberOfBatches = (int)Math.Ceiling(visitors.Count / (double)visitorsPerSector);
-
-            for (int i = 0; i < numberOfBatches; i++)
-            {
-                List<Visitor> batch = visitors.Skip(i * visitorsPerSector).Take(visitorsPerSector).ToList();
-                Sector sector = new Sector(sectorId++);
-                sector.AssignSeats(batch);
-                sectors.Add(sector);
-            }
-
-            return sectors;
-        }
 
         private static List<Group> CreateHardcodedGroups()
         {

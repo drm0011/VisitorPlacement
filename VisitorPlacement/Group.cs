@@ -16,11 +16,20 @@ namespace VisitorPlacement
             ID = id;
             GroupMembers = new List<Visitor>();
         }
+
         public void AddToGroup(Visitor visitor)
         {
-            visitor.GroupId = this.ID;
-            GroupMembers.Add(visitor);
+            if (!visitor.IsChild || HasAdult())
+            {
+                visitor.GroupId = this.ID;
+                GroupMembers.Add(visitor);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot add a child to a group without an adult.");
+            }
         }
+
         public bool HasAdult()
         {
             return GroupMembers.Any(visitor => !visitor.IsChild);

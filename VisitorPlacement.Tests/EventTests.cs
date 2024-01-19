@@ -35,7 +35,7 @@ namespace VisitorPlacement.Tests
 
             myEvent.RegisterVisitor(visitor);
             bool secondRegistrationResult = myEvent.RegisterVisitor(visitor);
-
+            
             Assert.IsFalse(secondRegistrationResult, "Visitor should not be registered twice.");
         }
 

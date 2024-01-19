@@ -39,24 +39,25 @@ namespace VisitorPlacement
                 Sectors.Add(sector);
             }
         }
-        public void RegisterVisitors(List<Visitor> visitors)
-        {
-            foreach (Visitor visitor in visitors)
-            {
-                RegisterVisitor(visitor);
-            }
-        }
+        //public void RegisterVisitors(List<Visitor> visitors)
+        //{
+        //    foreach (Visitor visitor in visitors)
+        //    {
+        //        RegisterVisitor(visitor);
+        //    }
+        //}
         public bool RegisterGroup(Group group)
         {
+            if (Groups.Any(g => g.ID == group.ID))
+            {
+                return false;
+            }
+
             if (group.HasAdult())
             {
                 foreach (Visitor visitor in group.GroupMembers)
                 {
-                    if (!IsAlreadyRegistered(visitor))
-                    {
-                        visitor.UpdateChildStatus(EventDate);
-                        registeredVisitors.Add(visitor);
-                    }
+                    RegisterVisitor(visitor);
                 }
                 Groups.Add(group);
                 return true;
@@ -89,10 +90,12 @@ namespace VisitorPlacement
             }
             return false;
         }
-        public List<Visitor> GetRegisteredVisitors()
-        {
-            return registeredVisitors.ToList();
-        }
+
+
+        //public List<Visitor> GetRegisteredVisitors()
+        //{
+        //    return registeredVisitors.ToList();
+        //}
     }
 }
 

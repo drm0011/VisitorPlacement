@@ -27,7 +27,7 @@ namespace VisitorPlacement
         }
 
         public void AssignSeats(List<Visitor> visitors)
-        { 
+        {
             List<Visitor> children = visitors.Where(v => v.IsChild).ToList();
             List<Visitor> adults = visitors.Where(v => !v.IsChild).ToList();
 
@@ -86,8 +86,8 @@ namespace VisitorPlacement
 
         private void HandleFullFirstRowForChildren(ref Row currentRow)
         {
-			currentRow = CreateNewRow() ?? HandleSectorOverflow();
-		}
+            currentRow = CreateNewRow() ?? HandleSectorOverflow();
+        }
     }
 
 }

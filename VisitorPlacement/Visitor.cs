@@ -12,6 +12,7 @@ namespace VisitorPlacement
         public string Name { get; set; }
         public DateTime Birthdate { get; set; }
         public bool IsChild { get; set; }
+        public int GroupId { get; set; }
         public Visitor(int id, string name, DateTime birthDate)
         {
             ID = id;

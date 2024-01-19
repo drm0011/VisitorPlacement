@@ -15,17 +15,17 @@ namespace VisitorPlacement
                 Console.WriteLine($"Sector {sector.ID}:");
                 foreach (Row row in sector.Rows)
                 {
-                    Console.Write($"Row {row.Number}:");
+                    Console.Write($"Row {row.Number}: ");
                     foreach (Seat seat in row.Seats)
                     {
                         if (seat.IsOccupied)
                         {
                             string visitorType = seat.Occupant.IsChild ? "C" : "A";
-                            Console.Write($"[{visitorType}{seat.Occupant.ID} {seat.Occupant.Birthdate.Year}] ");
+                            Console.Write($"[G{seat.Occupant.GroupId} {visitorType}{seat.Occupant.ID}] ");
                         }
                         else
                         {
-                            Console.Write("[ ] ");
+                            Console.Write("[Empty] ");
                         }
                     }
                     Console.WriteLine();
@@ -34,4 +34,5 @@ namespace VisitorPlacement
             }
         }
     }
+
 }
